@@ -1,0 +1,182 @@
+body{
+  //width: 1468px/2;
+  //height: 838px/2;
+  //border: 1px solid red;
+}
+html,body{
+  height: 100%;
+}
+.container{
+  text-align: center;
+  top: 50%;
+  position: relative;
+  margin-top: -141px;
+}
+@green: #0da58e;
+@light-green: #8cc152;
+@lime: #cdda49;
+@yellow: #fdc02f;
+@orange: #fd9727;
+@deep-orange: #fc5830;
+@red: #e2202c;
+@pink: #e62565;
+@purple: #9b2fae;
+@deep-purple: #673fb4;
+@blue: #4054b2;
+@light-blue: #587bf8;
+
+.on-state-mixin(@color, @icon){
+  label{
+    box-shadow: 0px 0px 0px 0px rgba(red(@color), green(@color), blue(@color), .5);
+  }
+  label:after{
+    content: @icon;
+  }
+  input:checked + label{
+    background-color: @color;
+    border-color: @color;
+    box-shadow: 0px 0px 0px .5em rgba(red(@color), green(@color), blue(@color), 0);
+    &:after{
+      color: @color;
+    }
+  }
+}
+
+
+@off-color: #ccc;
+@heart-color: @red;
+@star-color: @yellow;
+@bookmark-color: @green;
+.heart{
+  .on-state-mixin(@heart-color, "\f004")
+}
+.star{
+  .on-state-mixin(@star-color, "\f005")
+}
+.bookmark{
+  .on-state-mixin(@bookmark-color, "\f02e")
+}
+
+@icon-size: 1.9em; // Use em to make it scalable
+@border-radius: 100%;
+@border-width-off: .1em;
+@border-style-off: solid;
+@border-width-on: .1em;
+@border-style-on: solid; //Try dotted
+.anim-icon{
+  width: @icon-size;
+  height: @icon-size;
+  margin: 20px;
+  font-size: 13px;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  input{
+    display: none;
+  }
+  
+  label{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border: @border-width-off @border-style-off @off-color;
+    border-radius: @border-radius;
+    display: block;
+    font: normal normal normal 13px/1 FontAwesome;
+    color: @off-color;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    &:after{
+      left: 0;
+      top: 50%;
+      margin-top: -0.5em;
+      display: block;
+      position: relative;
+      text-align: center;
+    }
+  }
+  input:checked + label{
+    animation: check-in .3s forwards;
+    transition: background-color .1s .2s, box-shadow 1s;
+    border-width: @border-width-on;
+    border-style: @border-style-on;
+    &:after{
+      animation: icon .3s forwards;
+    }
+  }
+}
+
+.anim-icon-md{
+  font-size: 20px;
+}
+.anim-icon-lg{
+  font-size: 30px;
+}
+
+@keyframes icon {
+  0% {
+    margin-top: -0.5em;
+    font-size: 1.5em;
+  }
+  100% {
+    font-size: 1em;
+    opacity: 1;
+    color: white;
+  }
+}
+
+@keyframes check-in {
+  0% {
+    left: 20%;
+    top: 20%;
+    width: 60%;
+    height: 60%;
+  }
+  80% {
+    left: -5%;
+    top: -5%;
+    width: 110%;
+    height: 110%;
+  }
+  100% {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+@keyframes check {
+  0% {
+    left: 5%;
+    top: 5%;
+    width: 90%;
+    height: 90%;
+  }
+  10% {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  80% {
+    left: -5%;
+    top: -5%;
+    width: 110%;
+    height: 110%;
+  }
+  90% {
+    left: 5%;
+    top: 5%;
+    width: 90%;
+    height: 90%;
+  }
+  100% {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
